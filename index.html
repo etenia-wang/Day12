@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>狗狗歲數換算器</title>
+    <!--  放入這三行開始 -->
+    <link rel="icon" type="image/png" href="./icon.png">
+    <link rel="apple-touch-icon" href="./icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./icon.png">
+    <!--  放入這三行結束 -->
     <style>
-        html, body {
+        html,
+        body {
             margin: 0;
             height: 100%;
             font-family: "Microsoft JhengHei", sans-serif;
         }
+
         body {
             background: url('https://images.unsplash.com/photo-1534361960057-19889db9621e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
         }
+
         .overlay {
             background: rgba(255, 255, 255, 0.6);
             width: 100%;
@@ -22,6 +31,7 @@
             left: 0;
             backdrop-filter: blur(3px);
         }
+
         .container {
             position: absolute;
             top: 50%;
@@ -33,18 +43,21 @@
             border-radius: 20px;
             border: 5px solid;
             border-image: linear-gradient(45deg, #d4af37, #f7e98e) 1;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
+
         h1 {
             text-align: center;
             color: #a36cc3;
             font-size: 26px;
             margin-bottom: 20px;
         }
+
         label {
             font-weight: bold;
             color: #804d9a;
         }
+
         input[type="date"] {
             width: 100%;
             padding: 10px;
@@ -55,6 +68,7 @@
             font-size: 16px;
             box-sizing: border-box;
         }
+
         button {
             width: 100%;
             padding: 10px;
@@ -66,10 +80,12 @@
             font-weight: bold;
             cursor: pointer;
         }
+
         .clearBtn {
             background: linear-gradient(45deg, #ffd0d0, #ffe4e4);
             margin-top: 8px;
         }
+
         .result {
             margin-top: 25px;
             padding: 15px;
@@ -78,6 +94,7 @@
             color: #6a3d86;
             font-size: 16px;
         }
+
         .icon {
             width: 80px;
             display: block;
@@ -87,61 +104,62 @@
         }
     </style>
 </head>
+
 <body>
-<div class="overlay"></div>
-<div class="container">
+    <div class="overlay"></div>
+    <div class="container">
 
-    <div class="icon">🐶</div>
+        <div class="icon">🐶</div>
 
-    <h1>狗狗歲數換算器</h1>
+        <h1>狗狗歲數換算器</h1>
 
-    <label>狗狗的出生日期</label>
-    <input id="birthDate" type="date" />
+        <label>狗狗的出生日期</label>
+        <input id="birthDate" type="date" />
 
-    <button onclick="calculateAge()">開始計算</button>
-    <button class="clearBtn" onclick="clearData()">清除日期</button>
+        <button onclick="calculateAge()">開始計算</button>
+        <button class="clearBtn" onclick="clearData()">清除日期</button>
 
-    <div id="result" class="result" style="display:none"></div>
-</div>
+        <div id="result" class="result" style="display:none"></div>
+    </div>
 
-<script>
-    function formatDate(d) {
-        return d.getFullYear() + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + String(d.getDate()).padStart(2,'0');
-    }
-
-    function calculateAge() {
-        const input = document.getElementById("birthDate").value;
-        if (!input) return alert("請先選擇日期！");
-
-        const birth = new Date(input);
-        const now = new Date();
-
-        let y = now.getFullYear() - birth.getFullYear();
-        let m = now.getMonth() - birth.getMonth();
-        let d = now.getDate() - birth.getDate();
-
-        if (d < 0) {
-            m--;
-            const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-            d += prevMonth;
-        }
-        if (m < 0) {
-            y--;
-            m += 12;
+    <script>
+        function formatDate(d) {
+            return d.getFullYear() + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0');
         }
 
-        let humanYears = 0;
-        if (y <= 2) {
-            humanYears = y * 12 + (m / 12) * 12 + (d / 365) * 12;
-        } else {
-            humanYears = 24 + (y - 2) * 4 + (m / 12) * 4 + (d / 365) * 4;
-        }
+        function calculateAge() {
+            const input = document.getElementById("birthDate").value;
+            if (!input) return alert("請先選擇日期！");
 
-        const HY = Math.floor(humanYears);
-        const HM = Math.floor((humanYears - HY) * 12);
-        const HD = Math.floor((((humanYears - HY) * 12) - HM) * 30);
+            const birth = new Date(input);
+            const now = new Date();
 
-        const resultHTML = `
+            let y = now.getFullYear() - birth.getFullYear();
+            let m = now.getMonth() - birth.getMonth();
+            let d = now.getDate() - birth.getDate();
+
+            if (d < 0) {
+                m--;
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+                d += prevMonth;
+            }
+            if (m < 0) {
+                y--;
+                m += 12;
+            }
+
+            let humanYears = 0;
+            if (y <= 2) {
+                humanYears = y * 12 + (m / 12) * 12 + (d / 365) * 12;
+            } else {
+                humanYears = 24 + (y - 2) * 4 + (m / 12) * 4 + (d / 365) * 4;
+            }
+
+            const HY = Math.floor(humanYears);
+            const HM = Math.floor((humanYears - HY) * 12);
+            const HD = Math.floor((((humanYears - HY) * 12) - HM) * 30);
+
+            const resultHTML = `
             <b>🐶 實際年齡：</b><br>
             ${y} 年 ${m} 個月 ${d} 天<br><br>
 
@@ -149,27 +167,28 @@
             ${HY} 歲 ${HM} 個月 ${HD} 天
         `;
 
-        document.getElementById("result").innerHTML = resultHTML;
-        document.getElementById("result").style.display = "block";
-
-        localStorage.setItem("dogCalc", JSON.stringify({ input, resultHTML }));
-    }
-
-    function clearData() {
-        document.getElementById("birthDate").value = "";
-        document.getElementById("result").style.display = "none";
-        localStorage.removeItem("dogCalc");
-    }
-
-    window.onload = () => {
-        const saved = localStorage.getItem("dogCalc");
-        if (saved) {
-            const { input, resultHTML } = JSON.parse(saved);
-            document.getElementById("birthDate").value = input;
             document.getElementById("result").innerHTML = resultHTML;
             document.getElementById("result").style.display = "block";
+
+            localStorage.setItem("dogCalc", JSON.stringify({ input, resultHTML }));
         }
-    };
-</script>
+
+        function clearData() {
+            document.getElementById("birthDate").value = "";
+            document.getElementById("result").style.display = "none";
+            localStorage.removeItem("dogCalc");
+        }
+
+        window.onload = () => {
+            const saved = localStorage.getItem("dogCalc");
+            if (saved) {
+                const { input, resultHTML } = JSON.parse(saved);
+                document.getElementById("birthDate").value = input;
+                document.getElementById("result").innerHTML = resultHTML;
+                document.getElementById("result").style.display = "block";
+            }
+        };
+    </script>
 </body>
+
 </html>
